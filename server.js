@@ -37,17 +37,12 @@ app.get('/api/:date', function(req, res){
   const _date = +date ? +date : date;
 
   if(utils.isValidDate(_date)){
-    console.log('is Valid')
     const result = {
       unix: '',
       utc: '',
     }
 
-    if(utils.isUnixFormat(_date)){
-      result.unix = _date;
-    }else{
-      result.unix = utils.formatDateToUnix(_date);
-    }
+    result.unix = utils.isUnixFormat(_date) ? _date : utils.formatDateToUnix(_date);
     result.utc = utils.formatDate(_date);
     res.json(result);
   }else{
