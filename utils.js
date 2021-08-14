@@ -3,7 +3,7 @@ const moment = require('moment');
 exports.getCurrentDate = () => {
   return{
     unix: moment().unix(),
-    utc: moment().toDate()
+    utc: moment(new Date()).utcOffset('+0000').format('ddd, D MMM YYYY HH:mm:ss [GMT]')
   }
 }
 
