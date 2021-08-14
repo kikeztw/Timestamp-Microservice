@@ -20,5 +20,5 @@ exports.formatDateToUnix = (value) =>{
 }
 
 exports.formatDate = (value) => {
-  return moment(value).toDate();
+  return moment(value).utcOffset('+0000').format('dd, MMM D YYYY HH:mm:ss [GMT]');
 }
