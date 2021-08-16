@@ -1,5 +1,3 @@
-const moment = require('moment');
-
 exports.time = (value) =>{
     const givenDate = value;
     let date;
