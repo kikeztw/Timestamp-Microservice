@@ -27,31 +27,8 @@ app.get("/api/hello", function (req, res) {
 
 app.get('/api/:date?', function(req, res){
   const { date } = req.params;
-
-  if(!date){
-    res.json({
-      unix: utils.getCurrentDate().unix,
-      utc: utils.getCurrentDate().utc,
-    })
-  }
-
-  const _date = +date ? +date : date;
-
-  if(utils.isValidDate(_date)){
-    const result = {
-      unix: '',
-      utc: '',
-    }
-
-    result.unix = utils.isUnixFormat(_date) ? _date : utils.formatDateToUnix(_date);
-    result.utc = utils.formatDate(_date);
-    res.json(result);
-  }else{
-    res.json({
-      error : "Invalid Date",
-    });
-  }
-});
+  res.json(utils.time(date));
+}); 
 
 console.log(process.env.PORT)
 

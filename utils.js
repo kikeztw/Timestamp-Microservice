@@ -1,24 +1,24 @@
 const moment = require('moment');
 
-exports.getCurrentDate = () => {
-  return{
-    unix: moment().unix(),
-    utc: moment(new Date()).utcOffset('+0000').format('ddd, D MMM YYYY HH:mm:ss [GMT]')
+exports.time = (value) =>{
+    const givenDate = value;
+    let date;
+   // check if no date provided
+   if (!givenDate) {
+    date = new Date();
+  } else {
+    // check if unix time:
+    //    number string multiplied by 1 gives this number, data string gives NaN
+    const checkUnix = givenDate * 1;
+    date = isNaN(checkUnix) ? new Date(givenDate) : new Date(checkUnix);
   }
-}
 
-exports.isValidDate = (value) => {
-  return moment(value).isValid();
-}
-
-exports.isUnixFormat = (value) => {
-  return moment.unix(value).isValid();
-}
-
-exports.formatDateToUnix = (value) =>{
-  return new Date(value).getTime();
-}
-
-exports.formatDate = (value) => {
-  return moment(value).utcOffset('+0000').format('ddd, D MMM YYYY HH:mm:ss [GMT]');
+  //check if valid format
+  if (date == "Invalid Date") {
+    return { error: "Invalid Date" };
+  } else {
+    const unix = date.getTime();
+    const utc = date.toUTCString();
+    return{ unix, utc };
+  }
 }
