@@ -25,15 +25,16 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-app.get('/api', function(req, res){
-  res.json({
-    unix: utils.getCurrentDate().unix,
-    utc: utils.getCurrentDate().utc,
-  })
-})
-
 app.get('/api/:date', function(req, res){
   const { date } = req.params;
+
+  if(!date){
+    res.json({
+      unix: utils.getCurrentDate().unix,
+      utc: utils.getCurrentDate().utc,
+    })
+  }
+
   const _date = +date ? +date : date;
 
   if(utils.isValidDate(_date)){
